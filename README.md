@@ -3,12 +3,12 @@
 
 ## Usage
 Basic Commands
-'''
+```
 cmdName --set (name)
 cmdChannel --set (channel)
 cmdGuild --set (Guild Name)
 
-'''
+```
 
 ## Coming Soon
 >Discord Icons
