@@ -3,7 +3,7 @@ def cmdName():
 
 def cmdMessage():
 	cmdMessage = input("Message: ")
-	botMessage = ("[" + cmdName + "]:" + cmdMessage)
+	botMessage = ("[" + cmdName + "]: " + cmdMessage)
 	await channel.send(botMessage)
 
 def cmdChannel():
