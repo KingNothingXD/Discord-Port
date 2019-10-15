@@ -40,12 +40,8 @@ async def on_ready():
 					cmdChannel()
 					for channel in guild.channels:
 						if channel.name == cmdChannel:
+							# print channel message history here
 							cmdMessage()
-							botMessage()
-							await channel.send(botMessage)
-							cmdCommand = input("Command: ")
-							if
-							# print message history here
 							cmdMessage()
 							botMessage()
 											
