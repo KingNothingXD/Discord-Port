@@ -27,13 +27,13 @@ async def on_ready():
 	print("Port is online!")
 	cmdName()
 	if cmdName: # This executes if cmdName has a value.
-		cmdCommand() # Move all of the spagat below into this command, and make the cmdMessage seperate so as to send multiple messages.
-		if cmdName in rawName: # if cmdName is a takenName
+		#cmdCommand() # Move all of the spagat below into this command (possibly using a while statement)
+		while cmdName in rawName: # if cmdName is a takenName
 			cmdName()
 		else:
 			cmdGuild()
-						if channel.name == cmdChannel:
-							# print channel message history here
-							cmdMessage()
+			cmdChannel()
+				if channel.name == cmdChannel:
+					cmdMessage()
 											
 client.run(TOKEN)
