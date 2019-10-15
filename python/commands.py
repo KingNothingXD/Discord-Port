@@ -9,3 +9,10 @@ def cmdChannel():
 
 def cmdGuild():
 	cmdGuild = input("Name of server: ")
+	
+def botMessage():
+	botMessage = ("[" + cmdName + "]:" + cmdMessage)
+
+def cmdCommands():
+	cmdCommand = input("Command: ")
+
