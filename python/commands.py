@@ -1,11 +1,11 @@
-def newName():
+def cmdName():
 	cmdName = input("Display name: ")
 
-def newMessage():
+def cmdMessage():
 	cmdMessage = input("Message: ")
 
-def changeChannel():
+def cmdChannel():
 	cmdChannel = input("Channel: ")
 
-def changeGuild():
+def cmdGuild():
 	cmdGuild = input("Name of server: ")
