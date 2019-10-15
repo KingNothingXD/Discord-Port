@@ -28,7 +28,7 @@ async def on_ready():
 	cmdName = input("Display Name: ")
 	if cmdName: # This executes if cmdName has a value.
 		if cmdName in rawName: # if cmdName is a takenName
-			newName() # add this to commands
+			newName()
 		else:
 			cmdGuild = input("Guild Name: ")
 			for guild in client.guilds:
@@ -40,6 +40,10 @@ async def on_ready():
 					for channel in guild.channels:
 						if channel.name == cmdChannel:
 							cmdMessage = input("Message to Send: ")
-							botMessage= ("[" + cmdName + "]:" + cmdMessage)
+							botMessage = ("[" + cmdName + "]:" + cmdMessage)
 							await channel.send(botMessage)
+							# print message history here
+							newMessage()
+							botMessage = ("[" + cmdName + "]:" + cmdMessage)
+											
 client.run(TOKEN)
