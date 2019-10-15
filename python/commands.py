@@ -17,4 +17,4 @@ def cmdCommands():
 	cmdCommand = input("Command: ")
 
 
-cmdAmmount = 4 # This the the amount of all of the cmdCommands, excluding cmdCommands itself.
+cmdAmount = 4 # This the the amount of all of the cmdCommands, excluding cmdCommands itself.
