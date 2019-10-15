@@ -27,7 +27,7 @@ async def on_ready():
 	print("Port is online!")
 	cmdName()
 	if cmdName: # This executes if cmdName has a value.
-		cmdCommand()
+		cmdCommand() # Move all of the spagat below into this command, and make the cmdMessage seperate so as to send multiple messages.
 		if cmdName in rawName: # if cmdName is a takenName
 			cmdName()
 		else:
