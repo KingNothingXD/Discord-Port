@@ -25,18 +25,18 @@ with open(jname_path, encoding='utf-8-sig') as jName:
 @client.event
 async def on_ready():
 	print("Port is online!")
-	cmdName = input("Display Name: ")
+	cmdName()
 	if cmdName: # This executes if cmdName has a value.
 		if cmdName in rawName: # if cmdName is a takenName
-			newName()
+			cmdName()
 		else:
-			cmdGuild = input("Guild Name: ")
+			cmdGuild()
 			for guild in client.guilds:
 				if cmdGuild == guild.name:
 					print("Now chatting in ["+cmdGuild+"]")
 					for channel in guild.channels:
 						print(channel)
-					cmdChannel = input("Channel Name: ")
+					cmdChannel()
 					for channel in guild.channels:
 						if channel.name == cmdChannel:
 							cmdMessage = input("Message to Send: ")
