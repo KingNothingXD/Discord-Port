@@ -32,9 +32,6 @@ async def on_ready():
 			cmdName()
 		else:
 			cmdGuild()
-			for guild in client.guilds:
-				if cmdGuild == guild.name:
-					print("Now chatting in ["+cmdGuild+"]")
 					for channel in guild.channels:
 						print(channel)
 					cmdChannel()
