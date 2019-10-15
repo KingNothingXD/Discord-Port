@@ -3,15 +3,14 @@ def cmdName():
 
 def cmdMessage():
 	cmdMessage = input("Message: ")
+	botMessage = ("[" + cmdName + "]:" + cmdMessage)
+	await channel.send(botMessage)
 
 def cmdChannel():
 	cmdChannel = input("Channel: ")
 
 def cmdGuild():
 	cmdGuild = input("Name of server: ")
-	
-def botMessage():
-	botMessage = ("[" + cmdName + "]:" + cmdMessage)
 
 def cmdCommands():
 	cmdCommand = input("Command: ")
