@@ -27,6 +27,7 @@ async def on_ready():
 	print("Port is online!")
 	cmdName()
 	if cmdName: # This executes if cmdName has a value.
+		cmdCommand()
 		if cmdName in rawName: # if cmdName is a takenName
 			cmdName()
 		else:
@@ -39,11 +40,13 @@ async def on_ready():
 					cmdChannel()
 					for channel in guild.channels:
 						if channel.name == cmdChannel:
-							cmdMessage = input("Message to Send: ")
-							botMessage = ("[" + cmdName + "]:" + cmdMessage)
+							cmdMessage()
+							botMessage()
 							await channel.send(botMessage)
+							cmdCommand = input("Command: ")
+							if
 							# print message history here
-							newMessage()
-							botMessage = ("[" + cmdName + "]:" + cmdMessage)
+							cmdMessage()
+							botMessage()
 											
 client.run(TOKEN)
