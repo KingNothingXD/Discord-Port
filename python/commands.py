@@ -11,6 +11,9 @@ def cmdChannel():
 
 def cmdGuild():
 	cmdGuild = input("Name of server: ")
+	for guild in client.guilds:
+		if cmdGuild == guild.name:
+			print("Now chatting in ["+cmdGuild+"]")
 
 def cmdCommands():
 	cmdCommand = input("Command: ")
