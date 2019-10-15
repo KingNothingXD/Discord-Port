@@ -32,10 +32,6 @@ async def on_ready():
 			cmdName()
 		else:
 			cmdGuild()
-					for channel in guild.channels:
-						print(channel)
-					cmdChannel()
-					for channel in guild.channels:
 						if channel.name == cmdChannel:
 							# print channel message history here
 							cmdMessage()
