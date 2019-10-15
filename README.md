@@ -1,2 +1,7 @@
-# Discord-Port
-A ported discord into a chatroom hosted on a local machine or Pi
+# Discord Port
+### Ported discord into your PC's terminal
+
+## Coming Soon
+>Webpage support
+>Discord Icons
+>Updated Channel Layout
