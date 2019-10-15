@@ -42,7 +42,5 @@ async def on_ready():
 						if channel.name == cmdChannel:
 							# print channel message history here
 							cmdMessage()
-							cmdMessage()
-							botMessage()
 											
 client.run(TOKEN)
