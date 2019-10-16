@@ -7,10 +7,10 @@ from pathlib import Path
 from discord import User
 from discord.ext import commands
 from discord.ext.commands import Bot
-import commands
+from commands import *
 
 descrip = "A discord port to a webpage/machine written by NotU. Check out my Github!"
-client = Bot(command_prefix = "-", description=descrip)
+client = discord.Client()
 
 # Extracting the bot Token
 jfile_path = Path("portJson.JSON").resolve()
@@ -22,18 +22,20 @@ jname_path = Path("takenNames.JSON").resolve()
 with open(jname_path, encoding='utf-8-sig') as jName:
 	rawName = json.load(jName)
 
+async def sendMessage():
+	await channel.send(botMessage)
 @client.event
 async def on_ready():
 	print("Port is online!")
-	cmdName()
-	if cmdName: # This executes if cmdName has a value.
+	cmdSetName()
+	if cmdName != "": # This executes if cmdName has a value.
 		#cmdCommand() # Move all of the spagat below into this command (possibly using a while statement)
 		while cmdName in rawName: # if cmdName is a takenName
-			cmdName()
+			await cmdSetName()
 		else:
-			cmdGuild()
-			cmdChannel()
-				if channel.name == cmdChannel:
-					cmdMessage()
+			await cmdSetGuild()
+			await cmdSetChannel()
+			await cmdSetMessage()
+			await sendSetMessage()					
 											
 client.run(TOKEN)

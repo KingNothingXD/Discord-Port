@@ -1,23 +1,29 @@
-def cmdName():
+import json
+import pathlib
+from pathlib import Path
+import os
+import discord 
+def cmdSetName():
 	cmdName = input("Display name: ")
+	return cmdName
 
-def cmdGuild():
+async def cmdSetGuild():
 	cmdGuild = input("Name of server: ")
 	for guild in client.guilds:
 		if cmdGuild == guild.name:
 			print("Now Ported to ["+cmdGuild+"]")
 
-def cmdMessage():
+async def cmdSetMessage():
 	cmdMessage = input("Message: ")
 	botMessage = ("[" + cmdName + "]: " + cmdMessage)
-	await channel.send(botMessage)
 
-def cmdChannel():
+
+async def cmdSetChannel():
 	cmdChannel = input("Channel: ")
 	for channel in guild.channels:
 		print(channel)
 		for channel in guild.channels:
-			if channel == channel.name:
+			if cmdChannel == channel.name:
 				print("Now chatting in ["+cmdChannel+"]")
 				# get channel message hsitory here
 
