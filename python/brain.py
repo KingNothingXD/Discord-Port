@@ -1,5 +1,7 @@
 import json
 import discord
+from discord import *
+from discord.ext import *
 import logging
 import requests
 
@@ -19,12 +21,9 @@ with open(jfile_pathT, encoding='utf-8-sig') as jsonTest:
     blockedAccounts = rawFile["blockedAccounts"]
 
 client = discord.Client()
-messageOrNah = 0
 
 
-async def get_logs_from(channel):
-	messages = await channel.history(limit=5).flatten()
-	print(messages)
+
 
 @client.event
 async def on_ready():
@@ -62,15 +61,18 @@ async def on_ready():
 				for channel in guild.channels:
 					if channelChoice == channel.name:
 						print("Now in { "+channelChoice+" }")
-						await get_logs_from(channel)
+						for message in str(channel.history(limit=5)):
+							msg = await channel.get_message(id)
+							print(msg.content)
 						while True:
 							messageContent = input("[ "+serverChoice+" ]"+" -"+channelChoice+"- "+" Msg: ")
 							if messageContent == "Quit":
 								break
 							else:
 								botMessage = ("[ "+nameChoice+" ]: "+messageContent)
-								await channel.send(botMessage)
-								await get_logs_from(channel)
+								for message in str(channel.history(limit=5)):
+									msg = await channel.get_message(id)
+									print(msg.content)
 		else:
 			serverChoice = input("Server to access: ")
 	    #cmdCommand()
