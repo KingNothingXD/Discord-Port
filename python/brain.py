@@ -29,6 +29,7 @@ client = discord.Client()
 async def on_ready():
 	print("Port is online!")
 	for guild in client.guilds:
+		print("[ "+guild+" ]")
 		serverChoice = input("Server to access: ")
 		if serverChoice == guild.name: # Checks if server exists or not
 			serverKey = input("Server key: ") # Asks for Auth Key
@@ -56,7 +57,7 @@ async def on_ready():
 				else:
 					print("Ok then!")
 			for channel in guild.channels:
-				print("[ "+channel.name+" ]")
+				print("[ "+channel+" ]")
 				channelChoice = input("Channel Name: ")
 				for channel in guild.channels:
 					if channelChoice == channel.name:
