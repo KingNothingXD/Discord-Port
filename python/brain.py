@@ -62,17 +62,15 @@ async def on_ready():
 					if channelChoice == channel.name:
 						print("Now in { "+channelChoice+" }")
 						for message in str(channel.history(limit=5)):
-							msg = await channel.get_message(id)
-							print(msg.content)
+							print(messsage.content)
 						while True:
 							messageContent = input("[ "+serverChoice+" ]"+" -"+channelChoice+"- "+" Msg: ")
 							if messageContent == "Quit":
 								break
 							else:
 								botMessage = ("[ "+nameChoice+" ]: "+messageContent)
-								for message in str(channel.history(limit=5)):
-									msg = await channel.get_message(id)
-									print(msg.content)
+								for message in channel.history(limit=5):
+									print(message.content)
 		else:
 			serverChoice = input("Server to access: ")
 	    #cmdCommand()
