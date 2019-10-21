@@ -49,7 +49,7 @@ def receive_message(client_socket):
         # Return an object of message header and message data
         return {'header': message_header, 'data': client_socket.recv(message_length)}
 
-    except:
+    finally:
 
         # If we are here, client closed connection violently, for example by pressing ctrl+c on his script
         # or just lost his connection
