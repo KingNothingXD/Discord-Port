@@ -12,22 +12,22 @@ with open(jfile_pathT, encoding='utf-8-sig') as jsonTest:
     blockedAccounts = rawFile["blockedAccounts"]
 jfile_pathN = Path("names.JSON").resolve()
 with open(jfile_pathN, encoding='utf-8-sig') as jsonIP:
-    namesRaw = json.load(jsonIP)
-    names = namesRaw["IP"]
+    names = json.load(jsonIP)
 
 command_list = ["{get_logs_from}", "{get_channel_name}", "{get_guild_names}", "{leave_channel}"]
 
 async def get_name():
 	nameChoice = input("Display name: ")
 	host_ip = get_IP()
-	if host_ip in namesRaw:
-		namePword = input("Password: ")
-		while nameChoice in takenNames and namePword != takenNames[nameChoice]: # If password doesn't match the name set one
-			print("Auth Failed")
-			nameChoice = input("Display name: ")
+	for elem in names:
+		if host_ip in names and host_ip == names[host_ip]:
 			namePword = input("Password: ")
-		print("Hi {"+nameChoice+"}!")
-	else:
+			while nameChoice in takenNames and namePword != takenNames[nameChoice]: # If password doesn't match the name set one
+				print("Auth Failed")
+				nameChoice = input("Display name: ")
+				namePword = input("Password: ")
+			print("Hi {"+nameChoice+"}!")
+	if host_ip not in names:
 		save = input("Hi "+nameChoice+"! Save your name? (Y/n):")
 		if save == "Y":
 			save_name_password(nameChoice)

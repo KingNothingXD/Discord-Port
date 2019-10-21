@@ -37,23 +37,23 @@ async def on_ready():
 	print("Port is online!")
 	await get_name()
 	await get_guild_names(client)
-	#await get_guild(nameChoice)
-	#await get_channel_names(guild)
-	#for channel in guild.channels:
-		#channelChoice = input("Channel Name: ")
-		#for channel in guild.channels:
-			#if channelChoice == channel.name:
-				#print("Now in { "+channelChoice+" }")
-				#await get_logs_from(channel)
-				#while True:
-					#messageContent = input("[ "+serverChoice+" ]"+" -"+channelChoice+"- "+" Msg: ")
-					#if messageContent == "Quit":
-						#break
+	await get_guild(nameChoice)
+	await get_channel_names(guild)
+	for channel in guild.channels:
+		channelChoice = input("Channel Name: ")
+		for channel in guild.channels:
+			if channelChoice == channel.name:
+				print("Now in { "+channelChoice+" }")
+				await get_logs_from(channel)
+				while True:
+					messageContent = input("[ "+serverChoice+" ]"+" -"+channelChoice+"- "+" Msg: ")
+					if messageContent == "Quit":
+						break
 								
-					#else:
-						#botMessage = ("[ "+nameChoice+" ]: "+messageContent)
-						#await channel.send(botMessage)
-						#await get_logs_from(channel)
+					else:
+						botMessage = ("[ "+nameChoice+" ]: "+messageContent)
+						await channel.send(botMessage)
+						await get_logs_from(channel)
 	    #cmdCommand()
 
 client.run(TOKEN)
