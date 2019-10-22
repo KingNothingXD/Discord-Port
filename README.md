@@ -1,17 +1,10 @@
 # Discord Port
-### Ported discord into your PC's terminal
+### Ported discord into a webpage
+#### Using Flask and Discord.py
 
 ## Usage
-#### Soon to have web-support for blocked computers
-Basic Commands
-```
-list (guild name) #Returns all of the channels in guild
-change (channel name) #changes view to channel
-change (guild name) #change guild view 
-
-```
-
+> Soon to have web-support for blocked computers
 ## Coming Soon
->In-Server settings
+>In-Server security settings ( blocked users, server key, channel key)
 ## Need Help
->HTML, CSS, Graphical Design (DM for more info)
+>Graphical Design (DM for more info)
