@@ -16,7 +16,7 @@ with open(tokenPath, 'r') as jPort:
 	TOKEN = rawFile["TOKEN"]
 
 client = discord.Client()
-botClient = commands.Bot(command_prefix = "p!")
+bot = commands.Bot(command_prefix = "p!")
 
 serverLogsList = os.listdir("serverLogs")
 
@@ -26,7 +26,7 @@ async def on_ready():
 	print("Port is online - Built by Vortex")
 
 
-@botClient.event
+@client.event
 async def on_message(message):
 	content = message.content					
 	channel = str(message.channel)
@@ -39,6 +39,10 @@ async def on_message(message):
 		openServerData = open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'a')
 		openServerData.write(messageData)
 		openServerData.close()
+		if (str(message.guild.id)+'.txt' in serverSettingsList:
+			openSettingsData = open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'a')
+			openSettingsData.write(newSettings)
+			openSettingsData.close()
 		
 	else:
 		newFile = open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'w+')
@@ -48,7 +52,7 @@ async def on_message(message):
 		serverSettings.write(defualtSettings)
 		serverSettings.close()
 	print (f"Message Sent in {message.guild.name} by {message.author}")
-	await botClient.process_commands(message)
+	await bot.process_commands(message)
 			
 
 async def serverSettingsEmbed(message):
@@ -62,7 +66,7 @@ async def serverSettingsEmbed(message):
 	serverSettingsEmbed.add_field(name="SV lvl [p!SV (new verification level)]", value="serverVLevel", inline=False)
 	await botClient.send_message(message.channel, embed=serverSettingsEmbed)
 
-@botClient.command(name='server')
+@bot.command(name='server')
 async def serverSettings(message):
 	if message.author.server_permissions.administrator:
 		await serverSettingsEmbed(message)
