@@ -43,7 +43,7 @@ async def on_message(message):
 	serverTXT = (str(message.guild.id)+'.txt')
 		
 	if (str(message.guild.id)+'.txt') in serverLogsList:
-		with open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'a') as serverData
+		with open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'a') as serverData:
 		serverData.write(messageData)
 		if (str(message.guild.id)+'.txt' not in serverSettingsList:
 			with open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'w+') as settingsData:
