@@ -1,45 +1,76 @@
 import discord
 from discord import *
-import json
+from discord.ext import commands
+from discord.ext.commands import Bot
 import os
 from os import path
+import json
+import pathlib
+from pathlib import *
 
 basepath = path.dirname(__file__)
-filepath = path.abspath(path.join(basepath, "..", "..", "portToken.JSON"))
+tokenPath = path.abspath(path.join(basepath, "..", "..", "portToken.JSON"))
 
-with open(filepath, encoding='utf-8-sig', 'r') as jPort:
+with open(tokenPath, 'r') as jPort:
 	rawFile = json.load(jPort)
 	TOKEN = rawFile["TOKEN"]
 
-client = discord.Client(command_prefix="p!")
+client = discord.Client()
+botClient = commands.Bot(command_prefix = "p!")
 
-serverFilesList = os.listdir("serverFiles")
-
-async def on_message(message):
-	await client.wait_until_ready()
-	while not client.is_closed:
-		content = message.content					
-		channel = message.channl
-		author = message.author
-		messageData = ('"'+channel+'": '+'{"'+author+'": "'+content+'"}'
-		for f in range(serverFileList):
-			if str(message.guild.id) == os.path.basename(file):
-				with open ((guild.id + '.JOSN')) as f:
-					fileData = json.load(f)
-				fileData.update(messageData)
-				with open ((guild.id + '.JSON'), 'w') as messageFile:
-					json.dump(fileData, messageFile)
+serverLogsList = os.listdir("serverLogs")
 
 
 @client.event
 async def on_ready():
 	print("Port is online - Built by Vortex")
-	
-@client.event
-async def on_guild_join():
-	with open((guild.id + '.JSON'), 'w') as guildfile:
-		json.dump(guildfile)
 
-client.loop.create_task(on_message())
-client.run(TOKEN)
+
+@botClient.event
+async def on_message(message):
+	content = message.content					
+	channel = str(message.channel)
+	author = str(message.author)
+	timestamp = str(message.created_at)
+	messageData = ('"'+timestamp+'" = ["'+author+'", "'+channel+'", "'+content+'"] \n')
+	serverTXT = (str(message.guild.id)+'.txt')
+		
+	if (str(message.guild.id)+'.txt') in serverLogsList:
+		openServerData = open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'a')
+		openServerData.write(messageData)
+		openServerData.close()
+		
+	else:
+		newFile = open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'w+')
+		newFile.write(messageData)
+		newFile.close()
+		serverSettings = open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'w+')
+		serverSettings.write(defualtSettings)
+		serverSettings.close()
+	print (f"Message Sent in {message.guild.name} by {message.author}")
+	await botClient.process_commands(message)
+			
+
+async def serverSettingsEmbed(message):
+	serverTXT = (str(message.guild.id)+'.txt')
+	serverSettings = open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'r')
+		# get the respective list of the settings here 
+		# https://stackoverflow.com/questions/33686747/save-a-list-to-a-txt-file
+	serverSettingsEmbed=discord.Embed(title="Settings", description="your Port settings for "+"message.guild.name", color=0xda00ff)
+	serverSettingsEmbed.add_field(name="Server Password [p!pwrd (new password)]", value="serverPassword", inline=False)
+	serverSettingsEmbed.add_field(name="Blocked Porters [p!block (port display name)]", value="blockedUsers", inline=False)
+	serverSettingsEmbed.add_field(name="SV lvl [p!SV (new verification level)]", value="serverVLevel", inline=False)
+	await botClient.send_message(message.channel, embed=serverSettingsEmbed)
+
+@botClient.command(name='server')
+async def serverSettings(message):
+	if message.author.server_permissions.administrator:
+		await serverSettingsEmbed(message)
+	else:
+		await message.channel.send("Sorry, you don't have permissions....")		
+
+#@botClient.command(name='pwrd'):
+	# take args for password here and check verifacation
+
+botClient.run(TOKEN)
 		
