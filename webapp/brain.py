@@ -1,5 +1,6 @@
 import discord
 from discord import *
+from discord.utils import get
 from discord.ext import commands
 from discord.ext.commands import Bot
 import os
@@ -18,8 +19,14 @@ with open(tokenPath, 'r') as jPort:
 client = discord.Client()
 bot = commands.Bot(command_prefix = "p!")
 
-serverLogsList = os.listdir("serverLogs")
+serverLogsList = os.listdir('serverLogs')
+serverSettingsList = os.listdir('serverSettings')
 
+defualtSettings = (
+			Password = "123" \n
+			blockedPorters = [] \n
+			SV lvl = 0 \n
+			)
 
 @client.event
 async def on_ready():
@@ -36,13 +43,11 @@ async def on_message(message):
 	serverTXT = (str(message.guild.id)+'.txt')
 		
 	if (str(message.guild.id)+'.txt') in serverLogsList:
-		openServerData = open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'a')
-		openServerData.write(messageData)
-		openServerData.close()
-		if (str(message.guild.id)+'.txt' in serverSettingsList:
-			openSettingsData = open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'a')
-			openSettingsData.write(newSettings)
-			openSettingsData.close()
+		with open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'a') as serverData
+		serverData.write(messageData)
+		if (str(message.guild.id)+'.txt' not in serverSettingsList:
+			with open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'w+') as settingsData:
+			settingsData.write(defualtSettings)
 		
 	else:
 		newFile = open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'w+')
@@ -51,28 +56,73 @@ async def on_message(message):
 		serverSettings = open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'w+')
 		serverSettings.write(defualtSettings)
 		serverSettings.close()
-	print (f"Message Sent in {message.guild.name} by {message.author}")
+	print (f"Message Sent in {message.guild.name} by {message.author.name}")
 	await bot.process_commands(message)
-			
 
 async def serverSettingsEmbed(message):
 	serverTXT = (str(message.guild.id)+'.txt')
-	serverSettings = open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'r')
+	with open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'r') as serverSettings:
+		data = severSettings.readlines()
+	pword = []
+	blocked = []
+	sv = []
+	for line in serverSettings:
+		if ("password") in line:
+			pword.append(line)
+		    	del pword["password", "="]
+		    	print (pword)# for testing purposes, remove when it works
+		elif ("blockedPorters") in line:
+			blocked.append(line)
+		    	del blocked["blockedPorters", "="]
+		   	print (blocked)# for testing purposes, remove when it works
+		elif ("SV lvl") in line:
+			sv.append(line)
+		    	del sv["sv lvl", "="]
+		    	print (sv)# for testing purposes, remove when it works
 		# get the respective list of the settings here 
 		# https://stackoverflow.com/questions/33686747/save-a-list-to-a-txt-file
-	serverSettingsEmbed=discord.Embed(title="Settings", description="your Port settings for "+"message.guild.name", color=0xda00ff)
+	serverSettingsEmbed=discord.Embed(title="Settings", description="your Port settings for "+message.guild.name, color=0xda00ff)
 	serverSettingsEmbed.add_field(name="Server Password [p!pwrd (new password)]", value="serverPassword", inline=False)
 	serverSettingsEmbed.add_field(name="Blocked Porters [p!block (port display name)]", value="blockedUsers", inline=False)
 	serverSettingsEmbed.add_field(name="SV lvl [p!SV (new verification level)]", value="serverVLevel", inline=False)
-	await botClient.send_message(message.channel, embed=serverSettingsEmbed)
+	await bot.send_message(message.channel, embed=serverSettingsEmbed)
 
-@bot.command(name='server')
+async def serverChangeSettings(message):
+	serverName = (str(message.guild.id)+'.txt')
+	serverSettings = open(os.path.join(os.path.abspath('serverSettings'),serverName), 'a')
+		# get the list of settings here
+	await message.channel.send("Server Settings Updated")
+
+
+@bot.command(name='settings')
 async def serverSettings(message):
 	if message.author.server_permissions.administrator:
 		await serverSettingsEmbed(message)
 	else:
-		await message.channel.send("Sorry, you don't have permissions....")		
+		await message.channel.send("Sorry, you can't see this without permissions")		
 
+@bot.command(name='change settings')
+async def changeSettings(message):
+	if message.author.server_permissons.administrator:
+		await serverSettingsEmbed(message)
+		await changeServerSettings(message)
+		await serverSettingsEmbed(message)
+	else:
+		await message.channel.send("Sorry, you are not authorized to do that")
+		    
+async def settingsHelpEmbed(message):
+	serverSettingsHelpEmbed=discord.Embed(title="Settings Help", description"I give you great aid in your time of need", color=0xda00ff)
+	serverSettingsHelpEmbed.add_field(name="Set Server Password", value="p!pwrd (new password)", inline=False)
+	serverSettingsHelpEmbed.add_field(name="Blocked a Port User", value="p!block (port display name)", inline=False)
+	serverSettingsHelpEmbed.add_field(name="Set Server Verification Level", value="p!SV (0-3)", inline=False)
+	serverSettingsHelpEmbed.add_field(name="Server Verifications Levels Explained", value="0 = Wild West: no restrictions \n 1 = Christian Minecraft Server: no cursewords in name \n 2 = Grandma's House: no offensive names \n 3 = Fort Knox: only names of members on the server", inline = False)
+	await message.author.send(embed=serverSettingsHelpEmbed)
+@bot.command(name='settings help')
+async def settingsHelp(message):
+	if message.author.server_permissons.administrator:
+		await settingsHelpEmbed(message)
+	else:
+		await message.author.send("Sorry, you must have administrator to use this command") 
 #@botClient.command(name='pwrd'):
 	# take args for password here and check verifacation
 
