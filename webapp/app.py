@@ -4,6 +4,7 @@ from logic import get_message, get_guild, get_user_info, get_channel
 # On any hosting machine
 from flask import Flask, render_template, redirect, url_for, request, session
 import os
+import random
 
 app = Flask(__name__)
 

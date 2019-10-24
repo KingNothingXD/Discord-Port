@@ -21,12 +21,10 @@ bot = commands.Bot(command_prefix = "p!")
 
 serverLogsList = os.listdir('serverLogs')
 serverSettingsList = os.listdir('serverSettings')
-
-defualtSettings = (
-			Password = "123" \n
-			blockedPorters = [] \n
-			SV lvl = 0 \n
-			)
+defaultPassword = "123"
+defaultBlocked = []
+defaultSVlvl = 0
+defaultSettings = [defualtPassword, defaultBlocked, defaultSVlvl]
 
 @client.event
 async def on_ready():
@@ -44,18 +42,16 @@ async def on_message(message):
 		
 	if (str(message.guild.id)+'.txt') in serverLogsList:
 		with open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'a') as serverData:
-		serverData.write(messageData)
-		if (str(message.guild.id)+'.txt' not in serverSettingsList:
+			serverData.write(messageData)
+		if (str(message.guild.id)+'.txt') not in serverSettingsList:
 			with open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'w+') as settingsData:
-			settingsData.write(defualtSettings)
+				settingsData.write(defaultSettings)
 		
 	else:
-		newFile = open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'w+')
-		newFile.write(messageData)
-		newFile.close()
-		serverSettings = open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'w+')
-		serverSettings.write(defualtSettings)
-		serverSettings.close()
+		with open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'w+') as newFile:
+			newFile.write(messageData)
+		with open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'w+') as serverSettings:
+			serverSettings.write(defualtSettings)
 	print (f"Message Sent in {message.guild.name} by {message.author.name}")
 	await bot.process_commands(message)
 
@@ -69,16 +65,16 @@ async def serverSettingsEmbed(message):
 	for line in serverSettings:
 		if ("password") in line:
 			pword.append(line)
-		    	del pword["password", "="]
-		    	print (pword)# for testing purposes, remove when it works
+			del pword["password", "="]
+			print (pword)# for testing purposes, remove when it works
 		elif ("blockedPorters") in line:
 			blocked.append(line)
-		    	del blocked["blockedPorters", "="]
-		   	print (blocked)# for testing purposes, remove when it works
+			del blocked["blockedPorters", "="]
+			print (blocked)# for testing purposes, remove when it works
 		elif ("SV lvl") in line:
 			sv.append(line)
-		    	del sv["sv lvl", "="]
-		    	print (sv)# for testing purposes, remove when it works
+			del sv["sv lvl", "="]
+			print (sv)# for testing purposes, remove when it works
 		# get the respective list of the settings here 
 		# https://stackoverflow.com/questions/33686747/save-a-list-to-a-txt-file
 	serverSettingsEmbed=discord.Embed(title="Settings", description="your Port settings for "+message.guild.name, color=0xda00ff)
@@ -89,21 +85,22 @@ async def serverSettingsEmbed(message):
 
 async def serverChangeSettings(message):
 	serverName = (str(message.guild.id)+'.txt')
-	serverSettings = open(os.path.join(os.path.abspath('serverSettings'),serverName), 'a')
+	#with open(os.path.join(os.path.abspath('serverSettings'),serverName), 'a') as serverSettings: #not need for testing
 		# get the list of settings here
+		
 	await message.channel.send("Server Settings Updated")
 
 
 @bot.command(name='settings')
 async def serverSettings(message):
-	if message.author.server_permissions.administrator:
+	if message.author.guild_permissions.administrator:
 		await serverSettingsEmbed(message)
 	else:
 		await message.channel.send("Sorry, you can't see this without permissions")		
 
 @bot.command(name='change settings')
 async def changeSettings(message):
-	if message.author.server_permissons.administrator:
+	if message.author.guild_permissons.administrator:
 		await serverSettingsEmbed(message)
 		await changeServerSettings(message)
 		await serverSettingsEmbed(message)
@@ -119,7 +116,7 @@ async def settingsHelpEmbed(message):
 	await message.author.send(embed=serverSettingsHelpEmbed)
 @bot.command(name='settings help')
 async def settingsHelp(message):
-	if message.author.server_permissons.administrator:
+	if message.author.guild_permissons.administrator:
 		await settingsHelpEmbed(message)
 	else:
 		await message.author.send("Sorry, you must have administrator to use this command") 
