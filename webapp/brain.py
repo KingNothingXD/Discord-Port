@@ -3,11 +3,16 @@ from discord import *
 from discord.utils import get
 from discord.ext import commands
 from discord.ext.commands import Bot
+
 import os
 from os import path
+
 import json
+
 import pathlib
 from pathlib import *
+
+import logic
 
 basepath = path.dirname(__file__)
 tokenPath = path.abspath(path.join(basepath, "..", "..", "portToken.JSON"))
@@ -24,7 +29,7 @@ serverSettingsList = os.listdir('serverSettings')
 defaultPassword = "123"
 defaultBlocked = []
 defaultSVlvl = 0
-defaultSettings = [defualtPassword, defaultBlocked, defaultSVlvl]
+defaultSettings = [defaultPassword, defaultBlocked, defaultSVlvl]
 
 @client.event
 async def on_ready():
@@ -33,25 +38,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-	content = message.content					
-	channel = str(message.channel)
-	author = str(message.author)
-	timestamp = str(message.created_at)
-	messageData = ('"'+timestamp+'" = ["'+author+'", "'+channel+'", "'+content+'"] \n')
-	serverTXT = (str(message.guild.id)+'.txt')
-		
-	if (str(message.guild.id)+'.txt') in serverLogsList:
-		with open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'a') as serverData:
-			serverData.write(messageData)
-		if (str(message.guild.id)+'.txt') not in serverSettingsList:
-			with open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'w+') as settingsData:
-				settingsData.write(defaultSettings)
-		
-	else:
-		with open(os.path.join(os.path.abspath('serverLogs'),serverTXT), 'w+') as newFile:
-			newFile.write(messageData)
-		with open(os.path.join(os.path.abspath('serverSettings'),serverTXT), 'w+') as serverSettings:
-			serverSettings.write(defualtSettings)
+	displayMessage(message) # This is a private var, so it will be reset everytime a message is sent		
 	print (f"Message Sent in {message.guild.name} by {message.author.name}")
 	await bot.process_commands(message)
 
@@ -108,7 +95,7 @@ async def changeSettings(message):
 		await message.channel.send("Sorry, you are not authorized to do that")
 		    
 async def settingsHelpEmbed(message):
-	serverSettingsHelpEmbed=discord.Embed(title="Settings Help", description"I give you great aid in your time of need", color=0xda00ff)
+	serverSettingsHelpEmbed=discord.Embed(title="Settings Help", description="I give you great aid in your time of need", color=0xda00ff)
 	serverSettingsHelpEmbed.add_field(name="Set Server Password", value="p!pwrd (new password)", inline=False)
 	serverSettingsHelpEmbed.add_field(name="Blocked a Port User", value="p!block (port display name)", inline=False)
 	serverSettingsHelpEmbed.add_field(name="Set Server Verification Level", value="p!SV (0-3)", inline=False)
@@ -123,5 +110,5 @@ async def settingsHelp(message):
 #@botClient.command(name='pwrd'):
 	# take args for password here and check verifacation
 
-botClient.run(TOKEN)
+client.run(TOKEN)
 		

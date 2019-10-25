@@ -1,5 +1,0 @@
-"2019-10-23 01:03:36.086000" = ["Enviutize#0368", "bot-commands", "nooo"] 
-"2019-10-23 01:03:42.146000" = ["ПӨƬЦ#1003", "bot-commands", "lol"] 
-"2019-10-23 01:03:47.581000" = ["ПӨƬЦ#1003", "bot-commands", "we can have whole conversations"] 
-"2019-10-23 01:03:52.714000" = ["ПӨƬЦ#1003", "bot-commands", "and have the logs here"] 
-"2019-10-23 02:00:47.630000" = ["ПӨƬЦ#1003", "bot-commands", "p!server"] 

@@ -1,28 +1,27 @@
-import flask
-from logic import get_message, get_guild, get_user_info, get_channel
-# sudo pip3 install flask
-# On any hosting machine
-from flask import Flask, render_template, redirect, url_for, request, session
-import os
-import random
+
+from flask import Flask, render_template
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
+socketio = SocketIO(app)
 
-@app.route("/")
-def main():
+@app.route('/')
+def sessions():
 	return render_template('index.html')
-		
-@app.route("/login", methods=['GET', 'POST'])
-def login():
+
+def messageReceived(methods=['GET', 'POST']):
+	print('message was received!!!')
+
+@socketio.on('my event')
+def handle_my_custom_event(json, methods=['GET', 'POST']):
+	print('received my event: ' + str(json))
+	socketio.emit('my response', json)
+   
+@socketio.on('discordMessageSent')
+def handleDiscordMessage(methods=['GET', 'POST']):
+	# print the discord message to the chat room here
 	pass
 
-@app.route("/showcase")
-def showcase():
-	return render_template('showcase.html')
-
-@app.route("/joinus")
-def joinus():
-	return render_template("joinus.html")
-
-if __name__ == "__main__":
-	app.run(debug=True, host="0.0.0.0", port=8080)
+if __name__ == '__main__':
+    socketio.run(app, debug=True)
