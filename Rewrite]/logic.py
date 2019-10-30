@@ -1,22 +1,27 @@
 import flask
 import json
 import discord
+from discord import *
+from discord.ext import commands
 
-class messageData:
-	
+
+class messageData(commands.Cog):
 	# instance Attributes - on Init
-	def __init__(self, message):
-		self.message = messageObject
-		self.message.author.name = author
-		self.message.content = content
-		self.message.channel = channel
-		self.message.guild = guild
-		self.message.created_at = time
-	
+	def __init__(self, bot):
+		self.bot = bot
 	# instance method
-	def displayMessage(self, message): #put whatever the thing for writing a message in flask is here
-		for message in channel.history(limit=30):
-			print(author + content + channel + guild + str(time))
-		# display message in respective guild and channel, with name.
-			
+	@commands.Cog.listener()
+	async def on_message(self, message):
+		msgs = await message.channel.history(limit=10).flatten()
+		for message in reversed(msgs):
+			author = message.author.name
+			content = message.content
+			channel = message.channel
+			guild = message.guild
+			time = message.created_at
+			if content:
+				print (f"{author} said: {content}")
+				continue
+			else:
+				continue
 

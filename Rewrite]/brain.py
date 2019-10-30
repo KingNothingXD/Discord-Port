@@ -21,20 +21,11 @@ with open(tokenPath, 'r') as jPort:
 	rawFile = json.load(jPort)
 	TOKEN = rawFile["TOKEN"]
 
-client = discord.Client()
 bot = commands.Bot(command_prefix = "p!")
 
-@client.event
+@bot.event
 async def on_ready():
 	print("Port is online - Built by Vortex")
+	bot.add_cog(messageData(message))
 
-
-@client.event
-async def on_message(message):
-	displayMessage(message)
-	 # This is a private var, so it will be reset everytime a message is sent		
-	print (f"Message Sent in {message.guild.name} by {message.author.name}")
-	await bot.process_commands(message)
-
-client.run(TOKEN)
-		
+bot.run(TOKEN)
