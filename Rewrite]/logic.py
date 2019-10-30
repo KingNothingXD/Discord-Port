@@ -1,7 +1,6 @@
 import flask
 import json
 import discord
-from app import handleDiscordMessage
 
 class messageData:
 	
@@ -16,7 +15,8 @@ class messageData:
 	
 	# instance method
 	def displayMessage(self, message): #put whatever the thing for writing a message in flask is here
-		async for message in channel.history(limit=30):
+		for message in channel.history(limit=30):
+			print(author + content + channel + guild + str(time))
 		# display message in respective guild and channel, with name.
 			
 
