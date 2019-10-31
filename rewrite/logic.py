@@ -1,5 +1,4 @@
-import flask
-import json
+
 import discord
 from discord import *
 from discord.ext import commands
