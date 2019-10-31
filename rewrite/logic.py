@@ -18,7 +18,7 @@ class messageData(commands.Cog):
 			channel = message.channel
 			guild = message.guild
 			time = message.created_at
-			if content:
+			if content: # all of this is just to test, replace this with adding relevant info to the relevant channel board
 				print (f"{author} said: {content}")
 				continue
 			else:
