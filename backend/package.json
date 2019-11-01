@@ -1,0 +1,25 @@
+{
+  "name": "port",
+  "version": "0.1.0",
+  "description": "The backend for a system to send discord messages by proxy",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NotYouDev/Discord-Port.git"
+  },
+  "author": "Lordskloore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NotYouDev/Discord-Port/issues"
+  },
+  "homepage": "https://github.com/NotYouDev/Discord-Port#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "json": "^9.0.6",
+    "mongoose": "^5.7.7",
+    "websocket": "^1.0.30"
+  }
+}
