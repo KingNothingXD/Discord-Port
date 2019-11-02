@@ -6,7 +6,7 @@ bot = commands.Bot(command_prefix = "p!")
 
 class botCommands(commands.Cog):
 	# instance Attributes - on Init
-	def __init__(self, bot):
+	def __init__(self, bot, commands):
 		self.bot = bot
 	# instance method
 	@commands.command(name="register", description = "Register your discord account on Port")
@@ -25,7 +25,7 @@ class botCommands(commands.Cog):
 	async def help(self, ctx):
 		helpEmbed = discord.Embed(title="Port Help", description="Help with Port commands on {ctx.guild.name}", color=0x00ffe4)
 		for command in bot.commands:
-			helpEmbed.add_field(name=command.name, value=command.description, inline=False)
+			helpEmbed.add_field(name=command(name), value=command(description), inline=False)
 		helpEmbed.set_footer(text="Port is built and maintained by Vortex")
 		await ctx.channel.send(embed=helpEmbed)
 		
