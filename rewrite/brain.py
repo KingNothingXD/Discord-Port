@@ -11,7 +11,7 @@ import json
 
 import pathlib
 from pathlib import *
-
+from cmds import helpCommand
 from cmds import botCommands
 from logic import messageData
 
@@ -31,5 +31,6 @@ async def on_ready():
 	print("Port is online - Built by Vortex")
 	bot.add_cog(messageData(message))
 	bot.add_cog(botCommands(message))
+	bot.add_cog(helpCommand(message))
 
 bot.run(TOKEN)
