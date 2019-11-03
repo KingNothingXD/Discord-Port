@@ -9,24 +9,16 @@ class botCommands(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 	# instance method
-	@commands.command(name="register", description = "Register your discord account on Port")
+	@commands.command(discription="Register your discord account on Port [ p!register ]")
 	async def register(self, message):
 		await message.channel.send("This feature has yet to be implemented! Hang in there!")
 		# create a message for verifacation
-	@commands.command(name="info", description = "Server specific information regarding port")
+	@commands.command(discription="Server specific information regarding port [ p!info ]")
 	async def info(self, message):
 		await message.channel.send("Server specific port info will go here!")
 		# put the guild specific  port info here
-	@commands.command(name="changesettings", description = "Change your server's Port settings")
+	@commands.command(description="Change your server's Port settings [ p!changesettings ]")
 	async def changesettings(self, message):
 		await message.channel.send("This has yet to be set up! Stay tuned")
 		# put the dm server admin stuff here
-	@commands.command(name="help", description="Help Command")
-	async def help(self, ctx):
-		helpEmbed = discord.Embed(title="Port Help", description="Help with Port commands on {ctx.guild.name}", color=0x00ffe4)
-		for command in bot.commands:
-			helpEmbed.add_field(name=command.name, value=command.description, inline=False)
-		helpEmbed.set_footer(text="Port is built and maintained by Vortex")
-		await ctx.channel.send(embed=helpEmbed)
-		
-		# put the Port help embed here
+
