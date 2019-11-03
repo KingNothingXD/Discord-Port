@@ -4,23 +4,26 @@ from discord import *
 from discord.ext import commands
 
 
-class messageData(commands.Cog):
+class logData(commands.Cog):
 	# instance Attributes - on Init
 	def __init__(self, bot):
 		self.bot = bot
 	# instance method
 	@commands.Cog.listener()
 	async def on_message(self, message):
-		msgs = await message.channel.history(limit=10).flatten()
-		for message in reversed(msgs):
-			author = message.author.name
-			content = message.content
-			channel = message.channel
-			guild = message.guild
-			time = message.created_at
-			if content: # all of this is just to test, replace this with adding relevant info to the relevant channel board
-				print (f"{author} said: {content}")
-				continue
-			else:
-				continue
+		guildTag = str(message.guild.id) + ".txt" # The file extension should be whatever mongoDB uses
+		
+		# check a message contains any other media (Mention, Image, Link, (so far))
+		# assign either True or False to each respective variable
+		# have the front/backend have a system for using this data (mentioned get a notification, link has a thumbnail, etc.)
+		author = message.author.name
+		content = message.content
+		channel = message.channel
+		time = message.created_at
+		if guildTag in logFolders:
+			# append the guild logs with the new message and it's data in the agreed upon form
+			pass # for now
+		# if there is no existing guild log
+		# create a new log with guildTag
+
 
