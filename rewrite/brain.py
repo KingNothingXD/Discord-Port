@@ -7,8 +7,6 @@ from discord.client import *
 import os
 from os import path
 
-from pymongo import MongoClient
-mongoClient = MongoClient('<<MongoDB URL>>’)
 
 import json
 
