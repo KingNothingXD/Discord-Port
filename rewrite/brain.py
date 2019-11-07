@@ -27,7 +27,6 @@ with open(tokenPath, 'r') as jPort:
 bot = commands.Bot(command_prefix = "p!")
 bot.remove_command('help') # This gets rid of the default help command
 
-
 @bot.command(brief="Help Command [ p!help ]")
 async def help(message):
 	helpEmbed = discord.Embed(color=0x00ffe4)
