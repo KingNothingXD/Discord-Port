@@ -5,6 +5,7 @@ from discord.utils import get
 bot = commands.Bot(command_prefix = "p!")
 
 vortex = ["473446958414037022", "292293847567040512"]
+# Set the Vortex var to based on who has the devOps or founder role.
 
 class botCommands(commands.Cog):
 	# instance Attributes - on Init
@@ -12,30 +13,21 @@ class botCommands(commands.Cog):
 		self.bot = bot
 	# instance method
 	@commands.command(brief="Used by Vortex", pass_context = True)
-	async def update(self, message, ctx):
+	async def downtime(self, downtime, ctx):
 		if str(ctx.message.author.id) in vortex:
-			content = []
 			print("Message Author Confimed")
-			content.append(ctx.message.content.split(""))
-			for item in content[item]:
-				try:
-					int(item)
-					item = downtime
-					content.remove(item)
-					return args
-					break
-				except ValueError:
-					continue
 			embed = discord.Embed(color=0x00ffe4)
 			embed.set_author(name="Port Downtime")
 			embed.add_field(name="Estimated Downtime", value=(str(downtime)+" Hours"), inline=False) 
-			embed.add_field(name="Reason", value=str(args), inline=False)
-			for guild in range(discord.Client.guilds):
-				for channel in guild.channels:
-					if channel.name == "port":
+			# embed.add_field(name="Reason", value=str(args), inline=False)
+			for channel in client.get_all_channels():
+				if channel.name.lower() contains "port":
+					try:
 						await channel.send(embed=embed)
-						print("Update Message Sent!")
-				# this does work idk y
+						print(f"Downtime Message Sent to {channel.guild.name}!")
+					except Error:
+						print(f"Error sending message to {channel.guild.name}!")
+					
 	@commands.command(brief="Register your discord account on Port [ p!register ]")
 	async def register(self, message):
 		await message.author.send(f"Hi {message.author.nick}! Lets hook you up to Port!")
