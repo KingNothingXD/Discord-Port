@@ -12,6 +12,16 @@ class botCommands(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 	# instance method
+	
+	# Use this for passing new messages
+	@commands.Cog.listener(brief="Used by Vortex")
+	async def on_message(self, message):
+		print(message)
+	
+	@commands.Cog.listener(brief="Give people roles on join")
+	async def on_member_join(self, member):
+		print(f'{member} has join the Inkie discord server!')
+	
 	@commands.command(brief="Used by Vortex")
 	async def downtime(self, downtime, reason):
 		if str(message.author.id) in vortex:
