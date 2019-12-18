@@ -37,7 +37,6 @@ async def help(message):
 @bot.event
 async def on_ready():
 	print("Port is online - Built by Vortex")
-	bot.add_cog(logData(message))
 	bot.add_cog(botCommands(message))
 	await bot.change_presence(activity=Game(name='telephone'))
 	# have this be the amount of online clients on port
