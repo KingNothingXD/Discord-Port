@@ -21,7 +21,7 @@ class botCommands(commands.Cog):
 			embed.add_field(name="Estimated Downtime", value=(str(downtime)+" Hours"), inline=False) 
 			# embed.add_field(name="Reason", value=str(args), inline=False)
 			for channel in client.get_all_channels():
-				if channel.name.lower() contains "port":
+				if "port" in channel.name.lower():
 					try:
 						await channel.send(embed=embed)
 						print(f"Downtime Message Sent to {channel.guild.name}!")
