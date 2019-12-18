@@ -12,9 +12,9 @@ class botCommands(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 	# instance method
-	@commands.command(brief="Used by Vortex", pass_context = True)
-	async def downtime(self, downtime, ctx):
-		if str(ctx.message.author.id) in vortex:
+	@commands.command(brief="Used by Vortex")
+	async def downtime(self, downtime):
+		if str(message.author.id) in vortex:
 			print("Message Author Confimed")
 			embed = discord.Embed(color=0x00ffe4)
 			embed.set_author(name="Port Downtime")
