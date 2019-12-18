@@ -16,9 +16,7 @@ from pathlib import *
 from cmds import botCommands
 from logic import logData
 
-
-basepath = path.dirname(__file__)
-tokenPath = path.abspath(path.join(basepath, "..", "..", "portToken.JSON"))
+tokenPath = os.abspath("portToken.JSON"))
 
 with open(tokenPath, 'r') as jPort:
 	rawFile = json.load(jPort)
