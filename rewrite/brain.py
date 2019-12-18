@@ -10,8 +10,7 @@ from os import path
 
 import json
 
-import pathlib
-from pathlib import *
+from pathlib import Path
 
 from cmds import botCommands
 from logic import logData
