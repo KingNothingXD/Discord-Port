@@ -13,13 +13,13 @@ class botCommands(commands.Cog):
 		self.bot = bot
 	# instance method
 	@commands.command(brief="Used by Vortex")
-	async def downtime(self, downtime):
+	async def downtime(self, downtime, reason):
 		if str(message.author.id) in vortex:
 			print("Message Author Confimed")
 			embed = discord.Embed(color=0x00ffe4)
 			embed.set_author(name="Port Downtime")
 			embed.add_field(name="Estimated Downtime", value=(str(downtime)+" Hours"), inline=False) 
-			# embed.add_field(name="Reason", value=str(args), inline=False)
+			embed.add_field(name="Reason", value=str(reason), inline=False)
 			for channel in client.get_all_channels():
 				if "port" in channel.name.lower():
 					try:
