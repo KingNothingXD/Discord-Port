@@ -18,9 +18,9 @@ from logic import logData
 
 tokenPath = os.abspath("portToken.JSON"))
 
-with open(tokenPath, 'r') as jPort:
-	rawFile = json.load(jPort)
-	TOKEN = rawFile["TOKEN"]
+with open(tokenPath, 'r') as j:
+	rawFile = json.load(j)
+	TOKEN = rawFile['TOKEN']
 
 bot = commands.Bot(command_prefix = "p!")
 bot.remove_command('help') # This gets rid of the default help command
