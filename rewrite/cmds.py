@@ -16,7 +16,7 @@ class botCommands(commands.Cog):
 	# Use this for passing new messages
 	@commands.Cog.listener(brief="Used by Vortex")
 	async def on_message(self, message):
-		print(message)
+		print(message) # Pass this to js later
 	
 	@commands.Cog.listener(brief="Give people roles on join")
 	async def on_member_join(self, member):
