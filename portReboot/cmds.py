@@ -16,15 +16,36 @@ class botCommands(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 	# instance method
+<<<<<<< HEAD:portReboot/cmds.py
 	@commands.command(brief='Used by Vortex - p!downtime hours "reasons with spaces need double qoutes"', pass_context = True)
 	async def downtime(self, message, downtime, reason):
 		if dev0ps_check(message.author):
+=======
+	
+	# Use this for passing new messages
+	@commands.Cog.listener(brief="Used by Vortex")
+	async def on_message(self, message):
+		print(message) # Pass this to js later
+	
+	@commands.Cog.listener(brief="Give people roles on join")
+	async def on_member_join(self, member):
+		print(f'{member} has join the Inkie discord server!')
+	
+	@commands.command(brief="Used by Vortex")
+	async def downtime(self, downtime, reason):
+		if str(message.author.id) in vortex:
+>>>>>>> de4e316c14d145f9258982cea6dcaac4ec9fdf68:rewrite/cmds.py
 			print("Message Author Confimed")
 			embed = discord.Embed(color=0x00ffe4)
 			embed.set_author(name="Port Downtime")
 			embed.add_field(name="Estimated Downtime", value=(str(downtime)+" Hours"), inline=False) 
+<<<<<<< HEAD:portReboot/cmds.py
 			embed.add_field(name="Reason", value=str(args), inline=False) # Make sure to have reason in "".
 			for channel in bot.get_all_channels():
+=======
+			embed.add_field(name="Reason", value=str(reason), inline=False)
+			for channel in client.get_all_channels():
+>>>>>>> de4e316c14d145f9258982cea6dcaac4ec9fdf68:rewrite/cmds.py
 				if "port" in channel.name.lower():
 					try:
 						await channel.send(embed=embed)
