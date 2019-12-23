@@ -35,7 +35,11 @@ async def help(message):
 		helpEmbed.add_field(name=command.name, value=command.brief, inline=False)
 	helpEmbed.set_footer(text="Port is built and maintained by Vortex")
 	await message.author.send(embed=helpEmbed)
-	await message.channel.send(f"Hey {message.author.nick}, I just DM'd you the help info!")
+	try:
+		await message.channel.send(f"Hey {message.author.nick}, I just DM'd you the help info!")
+	except None:
+		print(f"Could not find a nick for {message.author}.")
+		await message.channel.send(f"Hey {message.author.name}, I just DM'd you the help info!")
 
 @bot.event
 async def on_ready():

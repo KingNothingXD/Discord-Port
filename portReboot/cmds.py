@@ -4,7 +4,11 @@ from discord.utils import get
 
 bot = commands.Bot(command_prefix = "p!")
 
-vortex = ["473446958414037022", "292293847567040512"]
+dev0ps_check (message.author):
+	for guild in bot.guilds:
+		if "dev0ps" in message.author.roles: # This is not secure, make it so that the role.id is what is being checked, or make it so that is only looks in vortex
+			return True
+
 # Set the Vortex var to based on who has the devOps or founder role.
 
 class botCommands(commands.Cog):
@@ -12,32 +16,32 @@ class botCommands(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 	# instance method
-	@commands.command(brief="Used by Vortex", pass_context = True)
-	async def downtime(self, downtime, ctx):
-		if str(ctx.message.author.id) in vortex:
+	@commands.command(brief='Used by Vortex - p!downtime hours "reasons with spaces need double qoutes"', pass_context = True)
+	async def downtime(self, message, downtime, reason):
+		if dev0ps_check(message.author):
 			print("Message Author Confimed")
 			embed = discord.Embed(color=0x00ffe4)
 			embed.set_author(name="Port Downtime")
 			embed.add_field(name="Estimated Downtime", value=(str(downtime)+" Hours"), inline=False) 
-			# embed.add_field(name="Reason", value=str(args), inline=False)
-			for channel in client.get_all_channels():
-				if channel.name.lower() contains "port":
+			embed.add_field(name="Reason", value=str(args), inline=False) # Make sure to have reason in "".
+			for channel in bot.get_all_channels():
+				if "port" in channel.name.lower():
 					try:
 						await channel.send(embed=embed)
 						print(f"Downtime Message Sent to {channel.guild.name}!")
-					except Error:
-						print(f"Error sending message to {channel.guild.name}!")
+					except:
+						print(f"Error Sending Message to {channel.guild.name}!")
 					
 	@commands.command(brief="Register your discord account on Port [ p!register ]")
 	async def register(self, message):
-		await message.author.send(f"Hi {message.author.nick}! Lets hook you up to Port!")
+		await message.author.send(f"Hi {message.author.name}! Lets hook you up to Port!")
 		# guild specific nicknames should remain the same, use user ID to get the nickname for the given guild on Port
 		await message.channel.send("This feature has yet to be implemented! Hang in there!")
 		
 	@commands.command(brief="Connect your Discord account to a pre-existing Port account [ p!verify ]")
 	async def verify(self, message):
-		await message.author.send(f"Hey {message.author.nick}! How about we verify that Port account!")
-		await message.author.send(f"{message.author.nick}, type in the Port name and hex you would like to connect to your Discord!")
+		await message.author.send(f"Hey {message.author.name}! How about we verify that Port account!")
+		await message.author.send(f"{message.author.name}, type in the Port name and hex you would like to connect to your Discord!")
 		# listen for a port account name and hex, else, display a verify help-embed
 		# create a message for Discord account verifacation
 		
