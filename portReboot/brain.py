@@ -1,29 +1,29 @@
+# Discord imports
 import discord
-from discord import *
 from discord.utils import get
 from discord.ext import commands
 from discord.ext.commands import Bot
-from discord.client import *
+
+# All external file handling
 import os
 from os import path
-
-
 import json
-
 from pathlib import Path
-
 from cmds import botCommands
 from logic import logData
 
+# Getting the bot token from the server file system
 tokenPath = Path("portToken.JSON").resolve()
 
 with open(tokenPath, 'r') as j:
 	rawFile = json.load(j)
 	TOKEN = rawFile['TOKEN']
 
+# Remove the defualt help command, set the prefix
 bot = commands.Bot(command_prefix = "p!")
-bot.remove_command('help') # This gets rid of the default help command
+bot.remove_command('help')
 
+# Custom help command
 @bot.command(brief="Help Command [ p!help ]")
 async def help(message):
 	helpEmbed = discord.Embed(color=0x00ffe4)
@@ -37,14 +37,16 @@ async def help(message):
 	except None:
 		print(f"Could not find a nick for {message.author}.")
 		await message.channel.send(f"Hey {message.author.name}, I just DM'd you the help info!")
-
+		
+# When bot comes online; do
 @bot.event
 async def on_ready():
 	print("Port is online - Built by Vortex")
+	# Load cogs
 	bot.add_cog(botCommands(message))
+	
+	# Change the bot's presence (This could be changed to something else later)
 	await bot.change_presence(activity=Game(name='telephone'))
-	# have this be the amount of online clients on port
-		
-		# put the Port help embed here
-
+	
+# Run the bot
 bot.run(TOKEN)
