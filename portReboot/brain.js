@@ -3,16 +3,10 @@ var WebSocketServer = require('websocket').server;
 var http = require('http');
 const bot = new Discord.Client();
 const fs = require("fs");
-<<<<<<< HEAD
+const mongoose = require("mongoose");
 
 bot.commands = new Discord.Collection();
 bot.categories = fs.readdirSync("./commands/");
-
-
-=======
-const mongoose = require("mongoose");
-bot.commands = new Discord.Collection()
->>>>>>> c41c00acf8525c1b63c79444341189172fb81491
 
 bot.on('ready', () => {
   console.log("Port is online - built by Vortx")
@@ -51,7 +45,7 @@ wsServer.on('request', function(request) {
   var connection = request.accept(null, request.origin);
   // All requests and messages will be handled here
   var userName = "";
-  
+
   connection.on('message', function(message) {
     if (message.type === 'utf8') {
       var content = JSON.parse(message.data);
