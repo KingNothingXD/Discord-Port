@@ -1,7 +1,11 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const fs = require("fs");
-bot.commands = new Discord.Collection()
+
+bot.commands = new Discord.Collection();
+bot.categories = fs.readdirSync("./commands/");
+
+
 
 bot.on('ready', () => {
   console.log("Port is online - built by Vortx")
