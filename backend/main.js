@@ -4,7 +4,7 @@ var json = require('json')
 var http = require('http');
 var mongoose = require('mongoose');
 var userSet = {};
-mongoose.connect('mongodb://localhost:27017/port', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://sudo:<password>@cluster0-hlnlb.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
 
 const user = mongoose.model('users', { username: String, password: String, salt: String, code: String });
 
