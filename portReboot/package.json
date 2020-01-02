@@ -13,9 +13,9 @@
   "author": "Lordskloore+NotYouDev",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/NotYouDev/Discord-Port/issues"
+    "url": "https://github.com/real-notU/Discord-Port/issues"
   },
-  "homepage": "https://github.com/NotYouDev/Discord-Port#readme",
+  "homepage": "https://github.com/real-notU/Discord-Port#readme",
   "dependencies": {
     "discord": "^0.8.2",
     "discord.js": "^11.5.1",
