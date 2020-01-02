@@ -94,26 +94,25 @@ wsServer.on('request', function(request) {
 });
 
 // bot config
-const { prefix, TOKEN, mongousr ,mongopwd } = require('./config.json');
+const { prefix, TOKEN, mongousr, mongopwd } = require('./config.json');
 
 mongoose.connect('mongodb+srv://'+mongousr+':'+mongopwd+'@cluster0-hlnlb.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true}).catch(err => console.log(err));
 
 const user = mongoose.model('users', { username: String, password: String, salt: String, guilds: [String] });
 
 bot.on('message', (message) => {
-  console.log(message.content) // however you want to handle message stuff here
-
-
   // stuff to pass to commands
   let message_array = message.content.split(" ");
   let cmd = message_array[0];
   let args = message_array.slice(1);
 
+  console.log(message.content) // for testing only
+
   // run handler
-  if (message.author != bot){
-    let commandfile = bot.commands.get(cmd.slice(prefix.length));
-    if (commandfile) commandfile.run(bot,message,args)
-  }
+  if (message.author.bot) return;
+  let commandfile = bot.commands.get(cmd.slice(prefix.length));
+  if (commandfile) commandfile.run(bot,message,args), console.log(`${message.guild.name}: command`);
+
 });
 
 // run the bot

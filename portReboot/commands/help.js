@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const {prefix} = require('..','/config.json');
 
 module.exports.run = async (bot, message, args) => {
 
@@ -11,8 +10,7 @@ module.exports.run = async (bot, message, args) => {
       command = bot.commands.get(command);
       const helpEmbed = new Discord.RichEmbed()
         .setColor('DARK_VIVID_PINK')
-        .setAuthor(`Port`, message.guild.iconURL)
-        .setDescription(`prefix: ${prefix}`)
+        .setAuthor(`Port Settings`, message.guild.iconURL)
         .addField("Name", command.help.name)
         .addField("Description", command.help.description)
         .addField("Access Level", command.help.access);
@@ -22,8 +20,9 @@ module.exports.run = async (bot, message, args) => {
   if(!args[0]) {
     const helpEmbed = new Discord.RichEmbed()
       .setColor('DARK_VIVID_PINK')
-      .setAuthor(`Port`, message.guild.iconURL)
-      .setDescription(`prefix: ${prefix}`);
+      .setAuthor(`Port Settings`, message.guild.iconURL);
+      // for loop over all bot.commands here
+      // add a field for each one with call
     message.channel.send(embed=helpEmbed)
   };
 
