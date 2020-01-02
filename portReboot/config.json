@@ -1,6 +1,6 @@
 {
-  "prefix":"p!",
-  "TOKEN": "token goes here",
-  "mongousr": "mongodb username goes here",
-  "mongopwd": "mongodb password goes here"
+	"prefix": "p!",
+	"TOKEN": "NjMzNDM4ODA3NjQ3MDU5OTk1.Xg006A.QPe7DD6MD1FNUhZ33y6O98VSJt8",
+	"mongousr": "sudo",
+	"mongopwd": "@@k$eWXJ29mANLa"
 }

@@ -5,8 +5,11 @@ const bot = new Discord.Client();
 const fs = require("fs");
 const mongoose = require("mongoose");
 
+// New engine
+mongoose.set('useUnifiedTopology', true);
+
+// commands collection init
 bot.commands = new Discord.Collection();
-bot.categories = fs.readdirSync("./commands/");
 
 bot.on('ready', () => {
   console.log("Port is online - built by Vortx")
@@ -93,7 +96,7 @@ wsServer.on('request', function(request) {
 // bot config
 const { prefix, TOKEN, mongousr ,mongopwd } = require('./config.json');
 
-mongoose.connect('mongodb+srv://'+mongousr+':'+mongopwd+'@cluster0-hlnlb.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://'+mongousr+':'+mongopwd+'@cluster0-hlnlb.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true}).catch(err => console.log(err));
 
 const user = mongoose.model('users', { username: String, password: String, salt: String, guilds: [String] });
 
