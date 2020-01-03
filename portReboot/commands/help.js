@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+const config = require('../config.json');
+
 module.exports.run = async (bot, message, args) => {
 
   if (args[0] == "help") return message.channel.send(`try ${prefix}help instead!`); // if p!help help gets sent
@@ -10,19 +12,20 @@ module.exports.run = async (bot, message, args) => {
       command = bot.commands.get(command);
       const helpEmbed = new Discord.RichEmbed()
         .setColor('DARK_VIVID_PINK')
-        .setAuthor(`Port Settings`, message.guild.iconURL)
-        .addField("Name", command.help.name)
-        .addField("Description", command.help.description)
-        .addField("Access Level", command.help.access);
+        .setAuthor(`Port Commands`, bot.avatarURL)
+        .addField(`Command Name:`, command.name)
+        .addField(`Description:`, command.description)
+        .addField(`Access Level:`, command.access);
       message.channel.send(embed=helpEmbed)
     };
   };
   if(!args[0]) {
     const helpEmbed = new Discord.RichEmbed()
       .setColor('DARK_VIVID_PINK')
-      .setAuthor(`Port Settings`, message.guild.iconURL);
-      // for loop over all bot.commands here
-      // add a field for each one with call
+      .setAuthor(`Port Settings`, bot.avatarURL)
+      bot.commands.forEach(command => {
+        helpEmbed.addField(`${config.prefix}${command.help.name}`, `${command.help.description}`, true)
+      });
     message.channel.send(embed=helpEmbed)
   };
 
@@ -33,7 +36,6 @@ module.exports.run = async (bot, message, args) => {
 module.exports.help = {
   name: "help",
   category: "info",
-  aliases: ["help", "h", "commands"],
   description: "I'm here to help",
-  access: "all"
+  access: "Everyone"
 }
